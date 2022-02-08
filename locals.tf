@@ -1,13 +1,20 @@
 locals {
-	common_tags = {
-		Project     = "Terraform"
-		Environment = "dev"
-	}
+    project_name_prefix = "testing"
 
-	addrs_by_idx        = cidrsubnets(var.cidr_block, var.subnet[*].new_bits...)
-	addrs_by_name       = {for i, n in var.subnet : n.name => {
-		cidr_block        = local.addrs_by_idx[i]
-		availability_zone = "${var.region}${n.availability_zone}"
-	}}
-	subnet_cidr_blocks = tomap(local.addrs_by_name)
+    common_tags = {
+        Project     = "Terraform"
+        Environment = "dev"
+    }
+
+    subnet_bits      = {for bit, bit_value in var.subnet : bit => bit_value.new_bits}
+    subnet_cidr_list = cidrsubnets(var.cidr_block, values(local.subnet_bits)...)
+    subnet_cidr_map  = {for i, cidr in local.subnet_cidr_list : keys(local.subnet_bits)[i] => cidr}
+    addrs_by_name    = {
+    for i, n in var.subnet : i => {
+        cidr_block        = local.subnet_cidr_map[i]
+        availability_zone = "${var.region}${n.availability_zone}"
+        is_private        = n.is_private
+    }
+    }
+    subnet_cidr_blocks = tomap(local.addrs_by_name)
 }
