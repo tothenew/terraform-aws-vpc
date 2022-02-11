@@ -11,30 +11,43 @@ variable "cidr_block" {
 
 variable "subnet" {
     type = map(object({
-        availability_zone = string
-        is_private        = bool
-        new_bits          = number
+        is_public = bool
+        details   = list(object({
+            availability_zone = string
+            cidr_address      = string
+        }))
     }))
-    default     = {
-        "public1" = {
-            availability_zone = "a"
-            is_private        = false
-            new_bits          = 2
+    default = {
+        "public" = {
+            is_public = true
+            details   = [
+                {
+                    availability_zone = "a"
+                    cidr_address      = "10.0.0.0/18"
+                }
+            ]
         }
-        "public2" = {
-            availability_zone = "b"
-            is_private        = false
-            new_bits          = 2
+        "public-new" = {
+            is_public = true
+            details   = [
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.64.0/18"
+                }
+            ]
         }
-        "private1" = {
-            availability_zone = "a"
-            is_private        = true
-            new_bits          = 2
-        }
-        "private2" = {
-            availability_zone = "b"
-            is_private        = true
-            new_bits          = 2
+        "application" = {
+            is_public = false
+            details   = [
+                {
+                    availability_zone = "a"
+                    cidr_address      = "10.0.128.0/18"
+                },
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.192.0/18"
+                }
+            ]
         }
     }
 }

@@ -1,23 +1,24 @@
 module "vpc_main" {
     source               = "./modules/vpc"
     cidr_block           = var.cidr_block
-    enable_dns_hostnames = true
+    enable_dns_hostnames = var.enable_dns_hostnames
+    enable_dns_support = var.enable_dns_support
     tags                 = merge(local.common_tags, tomap({
         "Name" : local.project_name_prefix
     }))
 }
 
 module "subnet_main" {
-    depends_on              = [module.vpc_main]
-    for_each                = local.subnet_cidr_blocks
-    source                  = "./modules/subnets"
-    vpc_id                  = module.vpc_main.vpc_id
-    cidr_block              = lookup(each.value, "cidr_block", "undefined")
-    availability_zone       = lookup(each.value, "availability_zone", "undefined")
-    map_public_ip_on_launch = lookup(each.value, "is_private", false)
-    tags                    = merge(local.common_tags, tomap({
-        "Name" : "${local.project_name_prefix}-${each.key}"
-    }))
+    depends_on          = [module.vpc_main]
+    for_each            = var.subnet
+    source              = "./modules/subnets-module"
+    vpc_id              = module.vpc_main.vpc_id
+    region              = var.region
+    name                = each.key
+    subnet_details      = each.value.details
+    is_public           = each.value.is_public
+    common_tags         = local.common_tags
+    project_name_prefix = local.project_name_prefix
 }
 
 module "internet_gateway" {
@@ -40,41 +41,30 @@ module "nat_gateway" {
     depends_on    = [module.subnet_main, module.elastic_ip]
     source        = "./modules/nat-gateway"
     allocation_id = module.elastic_ip.eip_id
-    subnet_id     = lookup(tomap({for k, bd in module.subnet_main : k => bd.subnet_id}), "public1", "undefined")
+    subnet_id     = values(lookup(tomap({for k, bd in module.subnet_main : k => bd.subnet_id}), local.public_subnet_name, {}))[0]
     tags          = merge(local.common_tags, tomap({
         "Name" : "${local.project_name_prefix}-nat-gateway"
     }))
 }
 
-module "public_route_table" {
-    depends_on = [module.vpc_main, module.internet_gateway]
-    source     = "./modules/route-table/public"
-    vpc_id     = module.vpc_main.vpc_id
-    cidr_block = "0.0.0.0/0"
-    gateway_id = module.internet_gateway.internet_gateway_id
-    tags       = merge(local.common_tags, tomap({
-        "Name" : "${local.project_name_prefix}-public"
-    }))
-}
-
-module "private_route_table" {
-    depends_on = [module.vpc_main, module.nat_gateway]
-    source     = "./modules/route-table/private"
-    vpc_id     = module.vpc_main.vpc_id
-    cidr_block = "0.0.0.0/0"
-    gateway_id = module.nat_gateway.nat_gateway_id
-    tags       = merge(local.common_tags, tomap({
-        "Name" : "${local.project_name_prefix}-private"
-    }))
+module "route_table" {
+    depends_on          = [module.vpc_main, module.internet_gateway]
+    for_each            = var.subnet
+    source              = "./modules/route-table-module"
+    vpc_id              = module.vpc_main.vpc_id
+    internet_gateway_id = module.internet_gateway.internet_gateway_id
+    nat_gateway_id      = module.nat_gateway.nat_gateway_id
+    common_tags         = local.common_tags
+    project_name_prefix = local.project_name_prefix
+    name                = each.key
+    is_public           = each.value.is_public
+    cidr_block          = "0.0.0.0/0"
 }
 
 module "route_table_association" {
-    depends_on     = [
-        module.subnet_main, module.private_route_table,
-        module.public_route_table
-    ]
-    for_each       = local.subnet_cidr_blocks
-    source         = "./modules/route-table-association"
-    subnet_id      = lookup(tomap({for k, bd in module.subnet_main : k => bd.subnet_id}), each.key, "undefined")
-    route_table_id = lookup(each.value, "is_private", false) ? module.private_route_table.route_table_id : module.public_route_table.route_table_id
+    depends_on     = [module.subnet_main, module.route_table]
+    for_each       = tomap({for k, bd in module.subnet_main : k => bd.subnet_id})
+    source         = "./modules/route-table-association-module"
+    subnet_ids      = each.value
+    route_table_id = lookup(tomap({for k, bd in module.route_table : k => bd.route_table_id}), each.key, "undefined")
 }
