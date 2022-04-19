@@ -1,4 +1,13 @@
 provider "aws" {
-    region      = "us-west-2"
+    region      = var.region
     profile     = "default"
+    default_tags {
+        tags = "${merge(
+            var.common_tags,
+            tomap({
+                "Project"     = var.Project,
+                "Environment" = var.Environment
+            })
+        )}"
+    }
 }
