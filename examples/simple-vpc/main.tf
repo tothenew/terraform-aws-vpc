@@ -30,6 +30,23 @@ module "internet_gateway" {
     }))
 }
 
+module "nat_gateway" {
+    depends_on    = [module.subnet_main, module.elastic_ip]
+    source        = "../../modules/nat-gateway"
+    allocation_id = module.elastic_ip.eip_id
+    subnet_id     = values(lookup(tomap({for k, bd in module.subnet_main : k => bd.subnet_id}), local.public_subnet_name, {}))[0]
+    tags          = merge(var.common_tags, tomap({
+        "Name" : "${var.project_name_prefix}-nat-gateway"
+    }))
+}
+
+module "elastic_ip" {
+    source = "../../modules/elastic-ip"
+    tags   = merge(var.common_tags, tomap({
+        "Name" : "${var.project_name_prefix}-elastic-ip"
+    }))
+}
+
 module "route_table" {
     depends_on          = [module.vpc_main, module.internet_gateway]
     for_each            = var.subnet
