@@ -39,8 +39,8 @@ subnet = {
 
 project_name_prefix = "testing"
 
-common_tags = {}
+common_tags = {
+    Project     = "Terraform"
+    Environment = "dev"
+}
 
-Project = "testing"
-
-Environment = "dev"
