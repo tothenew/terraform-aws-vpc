@@ -1,13 +1,14 @@
-region                  =   "us-west-2"
-cidr_block              =   "10.0.0.0/16"
-enable_dns_support      =   true
-enable_dns_hostnames    =   true
+region               = "ap-south-1"
+profile              = ""
+cidr_block           = "10.0.0.0/16"
+enable_dns_support   = true
+enable_dns_hostnames = true
 
 subnet = {
     "public" = {
-        is_public = true
+        is_public   = true
         nat_gateway = false
-        details   = [
+        details     = [
             {
                 availability_zone = "a"
                 cidr_address      = "10.0.0.0/19"
@@ -19,9 +20,9 @@ subnet = {
         ]
     }
     "database" = {
-        is_public = false
+        is_public   = false
         nat_gateway = false
-        details   = [
+        details     = [
             {
                 availability_zone = "a"
                 cidr_address      = "10.0.64.0/18"
@@ -33,9 +34,9 @@ subnet = {
         ]
     }
     "application" = {
-        is_public = false
+        is_public   = false
         nat_gateway = true
-        details   = [
+        details     = [
             {
                 availability_zone = "a"
                 cidr_address      = "10.0.192.0/19"
@@ -51,9 +52,9 @@ subnet = {
 project_name_prefix = "tothenew"
 
 common_tags = {
-    "Feature": "application"
+    "Feature" : "application"
 }
 
 Project = "ToTheNew"
 
-Environment = "dev"
+Environment = "beta"
