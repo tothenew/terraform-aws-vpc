@@ -23,10 +23,15 @@ variable "name" {
     description = "An Name for Route Table of the environment"
 }
 variable "is_public" {
-    type        = bool 
+    type        = bool
     description = "A boolean flag to enable/disable Public access for Route Table"
 }
 variable "cidr_block" {
     type        = string
     description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden"
+}
+
+variable "nat_gateway" {
+    type = bool
+    description = "Boolean value for the Nat Gateway to enable"
 }

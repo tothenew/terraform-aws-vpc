@@ -1,13 +1,13 @@
 provider "aws" {
     region      = var.region
-    profile     = "default"
+    profile     = "reflexion"
     default_tags {
-        tags = "${merge(
+        tags = merge(
             var.common_tags,
             tomap({
                 "Project"     = var.Project,
                 "Environment" = var.Environment
             })
-        )}"
+        )
     }
 }
