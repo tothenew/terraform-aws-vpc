@@ -62,14 +62,6 @@ module "route_table" {
     cidr_block          = "0.0.0.0/0"
 }
 
-#module "route_table_association" {
-#    depends_on     = [module.subnet_main, module.route_table]
-#    for_each       = tomap({for k, bd in module.subnet_main : k => bd.subnet_id})
-#    source         = "./modules/route-table-association-module"
-#    subnet_ids      = each.value
-#    route_table_id = lookup(tomap({for k, bd in module.route_table : k => bd.route_table_id}), each.key, "undefined")
-#}
-#
 module "route_table_association" {
     depends_on     = [module.subnet_main, module.route_table]
     for_each       = var.subnet

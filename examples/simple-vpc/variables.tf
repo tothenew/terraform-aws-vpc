@@ -1,6 +1,6 @@
 variable "region" {
     type    = string
-    default = "us-west-2"
+    default = "ap-south-1"
 }
 
 variable "cidr_block" {
@@ -19,15 +19,44 @@ variable "subnet" {
     }))
     default = {
         "public" = {
-            is_public = true
-            details   = [
+            is_public   = true
+            nat_gateway = false
+            details     = [
                 {
                     availability_zone = "a"
-                    cidr_address      = "10.0.0.0/18"
+                    cidr_address      = "10.0.0.0/19"
                 },
                 {
                     availability_zone = "b"
+                    cidr_address      = "10.0.32.0/19"
+                }
+            ]
+        }
+        "database" = {
+            is_public   = false
+            nat_gateway = false
+            details     = [
+                {
+                    availability_zone = "a"
                     cidr_address      = "10.0.64.0/18"
+                },
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.128.0/18"
+                }
+            ]
+        }
+        "application" = {
+            is_public   = false
+            nat_gateway = true
+            details     = [
+                {
+                    availability_zone = "a"
+                    cidr_address      = "10.0.192.0/19"
+                },
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.224.0/19"
                 }
             ]
         }
@@ -48,23 +77,23 @@ variable "enable_dns_hostnames" {
 
 variable "project_name_prefix" {
     type        = string
-    default     = "testing"
+    default     = "tothenew"
     description = "A string value to describe project name prefix"
 }
 
 variable "common_tags" {
-    type    =   map(string)
-    description     = "A map to add common tags to all the resources"
+    type        = map(string)
+    description = "A map to add common tags to all the resources"
 }
 
 variable "Project" {
     type        = string
-    default     = "testing"
-    description = ""
+    default     = "tothenew"
+    description = "Project Name"
 }
 
 variable "Environment" {
-    type = string
-    default = "dev"
-    description = ""
+    type        = string
+    default     = "dev"
+    description = "Environment Name"
 }
