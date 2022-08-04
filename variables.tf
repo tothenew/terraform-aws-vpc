@@ -1,6 +1,13 @@
 variable "region" {
-    type    = string
-    default = "us-west-2"
+    type        = string
+    description = "Region Name"
+    default     = "us-west-2"
+}
+
+variable "profile" {
+    type        = string
+    description = "Profile Name"
+    default     = ""
 }
 
 variable "cidr_block" {
