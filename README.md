@@ -13,33 +13,105 @@ Before this module can be used on a project, you must ensure that the following 
 
 
 ### Software Dependencies
-### Terraform
-- [Terraform](https://www.terraform.io/downloads.html) 1.0.x
-
+## Terraform
+- [Terraform](https://www.terraform.io/downloads.html) >= 1.2.5
 
 
 ## Install
 
 ### Terraform
-Be sure you have the correct Terraform version (1.0.x), you can choose the binary here:
+Be sure you have the correct Terraform version (>= 1.2.5), you can choose the binary here:
 - https://releases.hashicorp.com/terraform/
 
 ## File structure
 The project has the following folders and files:
 
-- /: Root folder
-- /main.tf: Main file for this module, contains all the resources to create
-- /provider.tf: File which will store the information about provider
-- /variables.tf: All the variables for the module
-- /output.tf: The outputs of the module
-- /README.md: This file
-- /locals.tf: All expressions to use in modules
-- /terrafrom.tfvars: Varaible files
+- main.tf: Main file for this module, contains all the resources to create
+- provider.tf: File which will store the information about provider
+- variables.tf: All the variables for the module
+- output.tf: The outputs of the module
+- README.md: This file
+- locals.tf: All expressions to use in modules
+- terraform.tfvars: Variable files
  
 ## Usage
 
-## Step 1: Clone the repo
-## Step 2: Then perform the following commands in the root folder:
+Create a main.tf file to create a VPC
+```
+module "vpc_main" {
+    source               = "git::https://github.com/IntelliGrape/terraform-aws-vpc.git?ref=v1.0.1"
+    cidr_block           = var.cidr_block
+    enable_dns_hostnames = var.enable_dns_hostnames
+    enable_dns_support   = var.enable_dns_support
+    region               = var.region
+    profile              = var.profile
+    subnet               = var.subnet
+    project_name_prefix  = var.project_name_prefix
+    common_tags          = var.common_tags
+    Project              = var.Project
+    Environment          = var.Environment
+}
+```
+Create a terraform.tfvars file for variable passing
+```
+region               = "ap-south-1"
+profile              = ""
+cidr_block           = "10.0.0.0/16"
+enable_dns_support   = true
+enable_dns_hostnames = true
+subnet = {
+    "public" = {
+        is_public   = true
+        nat_gateway = false
+        details     = [
+            {
+                availability_zone = "a"
+                cidr_address      = "10.0.0.0/19"
+            },
+            {
+                availability_zone = "b"
+                cidr_address      = "10.0.32.0/19"
+            }
+        ]
+    }
+    "database" = {
+        is_public   = false
+        nat_gateway = false
+        details     = [
+            {
+                availability_zone = "a"
+                cidr_address      = "10.0.64.0/18"
+            },
+            {
+                availability_zone = "b"
+                cidr_address      = "10.0.128.0/18"
+            }
+        ]
+    }
+    "application" = {
+        is_public   = false
+        nat_gateway = true
+        details     = [
+            {
+                availability_zone = "a"
+                cidr_address      = "10.0.192.0/19"
+            },
+            {
+                availability_zone = "b"
+                cidr_address      = "10.0.224.0/19"
+            }
+        ]
+    }
+}
+project_name_prefix = "tothenew"
+common_tags = {
+    "Feature" : "application"
+}
+Project = "ToTheNew"
+Environment = "beta"
+```
+
+## Step 1: Perform the following commands in the root folder:
 
 - `terraform init` to get the plugins
 - `terraform plan --var-file="terraform.tfvars"` to see the infrastructure plan
@@ -65,13 +137,15 @@ The project has the following folders and files:
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| cidr_block |  | `string` | 10.0.0.0/16 | yes |
-| subnet |  | `map` | n/a | yes |
-| enable_dns_support |  | `bool` | n/a | yes |
-| enable_dns_hostnames |  | `bool` | n/a | yes |
-| project_name_prefix |  | `string` | n/a | yes |
-| common_tags |  | `map` | n/a | yes |
-| Project |  | `string` | n/a | yes |
-| Environment |  | `string` | n/a | yes |
+| Name                 | Description                                               | Type | Default     | Required |
+|----------------------|-----------------------------------------------------------|------|-------------|:--------:|
+| cidr_block           | IPV4 range for VPC Creation                               | `string` | 10.0.0.0/16 |   yes    |
+| subnet               | Subnet details having zone and cidr address               | `map` | n/a         |   yes    |
+| enable_dns_support   | A boolean flag to enable/disable DNS support in the VPC   | `bool` | true        |    no    |
+| enable_dns_hostnames | A boolean flag to enable/disable DNS hostnames in the VPC | `bool` | false       |    no    |
+| project_name_prefix  | A string value to describe prefix of all the resources    | `string` | tothenew    |    no    |
+| common_tags          | A map to add common tags to all the resources             | `map` | n/a         |    no    |
+| Project              | A string value for tag as Project Name                    | `string` | tothenew    |    no    |
+| Environment          | A string value for tag as Environment Name                                                          | `string` | dev         |    no    |
+| region               | A string value for Launch resources in which AWS Region                                                          | `string` | us-west-2   |    no    |
+| profile              | A string value for setting AWS Profile                                                          | `string` | n/a         |    no    |

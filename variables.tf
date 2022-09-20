@@ -1,12 +1,12 @@
 variable "region" {
     type        = string
-    description = "Region Name"
+    description = "A string value for Launch resources in which AWS Region"
     default     = "us-west-2"
 }
 
 variable "profile" {
     type        = string
-    description = "Profile Name"
+    description = "A string value for setting AWS Profile"
     default     = ""
 }
 
@@ -17,6 +17,7 @@ variable "cidr_block" {
 }
 
 variable "subnet" {
+    description = "Subnet details having zone and cidr address"
     type = map(object({
         is_public   = bool
         nat_gateway = bool
@@ -86,24 +87,25 @@ variable "enable_dns_hostnames" {
 variable "project_name_prefix" {
     type        = string
     default     = "tothenew"
-    description = "A string value to describe project name prefix"
+    description = "A string value to describe prefix of all the resources"
 }
 
 variable "common_tags" {
     type        = map(string)
+    default     = {}
     description = "A map to add common tags to all the resources"
 }
 
 variable "Project" {
     type        = string
     default     = "tothenew"
-    description = "Project Name"
+    description = "A string value for tag as Project Name"
 }
 
 variable "Environment" {
     type        = string
     default     = "dev"
-    description = "Environment Name"
+    description = "A string value for tag as Environment Name"
 }
 
 
