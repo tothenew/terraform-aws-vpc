@@ -5,8 +5,8 @@ provider "aws" {
         tags = merge(
             var.common_tags,
             tomap({
-                "Project"     = var.Project,
-                "Environment" = var.Environment
+                "Project"     = var.project,
+                "Environment" = var.environment
             })
         )
     }

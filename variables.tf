@@ -96,13 +96,13 @@ variable "common_tags" {
     description = "A map to add common tags to all the resources"
 }
 
-variable "Project" {
+variable "project" {
     type        = string
     default     = "tothenew"
     description = "A string value for tag as Project Name"
 }
 
-variable "Environment" {
+variable "environment" {
     type        = string
     default     = "dev"
     description = "A string value for tag as Environment Name"
