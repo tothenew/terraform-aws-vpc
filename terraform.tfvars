@@ -1,6 +1,6 @@
-region               = "us-west-2"
+region               = "us-east-1"
 profile              = "reflexion"
-cidr_block           = "10.0.0.0/16"
+cidr_block           = "10.20.0.0/20"
 enable_dns_support   = true
 enable_dns_hostnames = true
 
@@ -11,11 +11,15 @@ subnet = {
         details     = [
             {
                 availability_zone = "a"
-                cidr_address      = "10.0.0.0/19"
+                cidr_address      = "10.20.0.0/26"
             },
             {
                 availability_zone = "b"
-                cidr_address      = "10.0.32.0/19"
+                cidr_address      = "10.20.0.64/26"
+            },
+            {
+                availability_zone = "c"
+                cidr_address      = "10.20.0.128/26"
             }
         ]
     }
@@ -25,11 +29,33 @@ subnet = {
         details     = [
             {
                 availability_zone = "a"
-                cidr_address      = "10.0.64.0/18"
+                cidr_address      = "10.20.1.128/25"
             },
             {
                 availability_zone = "b"
-                cidr_address      = "10.0.128.0/18"
+                cidr_address      = "10.20.2.0/25"
+            },
+            {
+                availability_zone = "c"
+                cidr_address      = "10.20.2.128/25"
+            }
+        ]
+    }
+    "app-tools" = {
+        is_public   = false
+        nat_gateway = true
+        details     = [
+            {
+                availability_zone = "a"
+                cidr_address      = "10.20.0.192/26"
+            },
+            {
+                availability_zone = "b"
+                cidr_address      = "10.20.1.0/26"
+            },
+            {
+                availability_zone = "c"
+                cidr_address      = "10.20.1.64/26"
             }
         ]
     }
@@ -39,11 +65,15 @@ subnet = {
         details     = [
             {
                 availability_zone = "a"
-                cidr_address      = "10.0.192.0/19"
+                cidr_address      = "10.20.4.0/22"
             },
             {
                 availability_zone = "b"
-                cidr_address      = "10.0.224.0/19"
+                cidr_address      = "10.20.8.0/22"
+            },
+            {
+                availability_zone = "c"
+                cidr_address      = "10.20.12.0/22"
             }
         ]
     }
