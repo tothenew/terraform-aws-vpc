@@ -1,5 +1,5 @@
 module "vpc_main" {
-    source               = "git::https://github.com/IntelliGrape/terraform-aws-vpc.git?ref=v1.0.1"
+    source               = "git::https://github.com/tothenew/terraform-aws-vpc.git?ref=v1.0.2"
     cidr_block           = var.cidr_block
     enable_dns_hostnames = var.enable_dns_hostnames
     enable_dns_support   = var.enable_dns_support
@@ -8,6 +8,6 @@ module "vpc_main" {
     subnet               = var.subnet
     project_name_prefix  = var.project_name_prefix
     common_tags          = var.common_tags
-    Project              = var.Project
-    Environment          = var.Environment
+    project              = var.project
+    environment          = var.environment
 }

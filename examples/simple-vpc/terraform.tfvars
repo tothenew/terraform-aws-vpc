@@ -55,6 +55,6 @@ common_tags = {
     "Feature" : "application"
 }
 
-Project = "ToTheNew"
+project = "ToTheNew"
 
-Environment = "beta"
+environment = "beta"

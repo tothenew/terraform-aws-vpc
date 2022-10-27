@@ -44,12 +44,12 @@ variable "common_tags" {
     description = "A map to add common tags to all the resources"
 }
 
-variable "Project" {
+variable "project" {
     type        = string
     description = "Project Name"
 }
 
-variable "Environment" {
+variable "environment" {
     type        = string
     description = "Environment Name"
 }
