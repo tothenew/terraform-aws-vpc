@@ -1,70 +1,55 @@
 variable "region" {
-    type    = string
-    default = "us-west-2"
+    type        = string
+    description = "Region Name"
+}
+
+variable "profile" {
+    type        = string
+    description = "Profile Name"
 }
 
 variable "cidr_block" {
     type        = string
-    default     = "10.0.0.0/16"
     description = "IPV4 range for VPC Creation"
 }
 
 variable "subnet" {
     type = map(object({
-        is_public = bool
-        details   = list(object({
+        is_public   = bool
+        nat_gateway = bool
+        details     = list(object({
             availability_zone = string
             cidr_address      = string
         }))
     }))
-    default = {
-        "public" = {
-            is_public = true
-            details   = [
-                {
-                    availability_zone = "a"
-                    cidr_address      = "10.0.0.0/18"
-                },
-                {
-                    availability_zone = "b"
-                    cidr_address      = "10.0.64.0/18"
-                }
-            ]
-        }
-    }
 }
 
 variable "enable_dns_support" {
     type        = bool
-    default     = true
     description = "A boolean flag to enable/disable DNS support in the VPC"
 }
 
 variable "enable_dns_hostnames" {
     type        = bool
-    default     = false
     description = "A boolean flag to enable/disable DNS hostnames in the VPC"
 }
 
 variable "project_name_prefix" {
     type        = string
-    default     = "testing"
     description = "A string value to describe project name prefix"
 }
 
 variable "common_tags" {
-    type    =   map(string)
-    description     = "A map to add common tags to all the resources"
+    type        = map(string)
+    description = "A map to add common tags to all the resources"
 }
 
-variable "Project" {
+variable "project" {
     type        = string
-    default     = "testing"
-    description = ""
+    description = "Project Name"
 }
 
-variable "Environment" {
-    type = string
-    default = "dev"
-    description = ""
+variable "environment" {
+    type        = string
+    description = "Environment Name"
 }

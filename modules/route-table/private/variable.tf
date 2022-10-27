@@ -14,3 +14,8 @@ variable "tags" {
     type        = map(string)
     description = "A map of tags to add to all resources"
 }
+
+variable "nat_gateway" {
+    type = bool
+    description = "Boolean value for the Nat Gateway to enable"
+}

@@ -18,4 +18,5 @@ module "route_table_private" {
     tags       = merge(var.common_tags, tomap({
         "Name" : "${var.project_name_prefix}-${var.name}"
     }))
+    nat_gateway = var.nat_gateway
 }
