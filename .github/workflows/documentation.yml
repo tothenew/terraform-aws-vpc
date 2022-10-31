@@ -9,7 +9,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Render terraform docs inside the USAGE.md and push changes back to PR branch
+      - name: Render terraform docs inside the README.md and push changes back to PR branch
         uses: DNXLabs/terraform-docs@v1.0.0
         with:
           tf_docs_working_dir: .
