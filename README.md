@@ -1,38 +1,49 @@
 # terraform-aws-vpc
 
-## VPC
+[![Lint Status](https://github.com/tothenew/terraform-aws-vpc/workflows/Lint/badge.svg)](https://github.com/tothenew/terraform-aws-vpc/actions)
+[![LICENSE](https://img.shields.io/github/license/tothenew/terraform-aws-vpc)](https://github.com/tothenew/terraform-aws-vpc/blob/master/LICENSE)
 
-This Terraform code snippet is used to launch a VPC with required subnets
+This is a vpc to use for baseline. The default actions will provide updates for section bitween Requirements and Outputs.
 
+The following content needed to be created and managed:
+ - Introduction
+     - Explaination of module 
+     - Intended users
+ - Resource created and managed by this module
+ - Example Usages
+
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-Before this module can be used on a project, you must ensure that the following pre-requisites are fulfilled:
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 
-1. Terraform is [installed](#software-dependencies) on the machine where Terraform is executed.
-2. Make sure you had access to launch the resources in aws.
+## Providers
 
+No providers.
 
-### Software Dependencies
-## Terraform
-- [Terraform](https://www.terraform.io/downloads.html) >= 1.2.5
- 
-## Usage
+## Modules
 
-```
-module "vpc_main" {
-    source               = "git::https://github.com/tothenew/terraform-aws-vpc.git?ref=v1.0.2"
-    cidr_block           = var.cidr_block
-    enable_dns_hostnames = var.enable_dns_hostnames
-    enable_dns_support   = var.enable_dns_support
-    region               = var.region
-    profile              = var.profile
-    subnet               = var.subnet
-    project_name_prefix  = var.project_name_prefix
-    common_tags          = var.common_tags
-    Project              = var.Project
-    Environment          = var.Environment
-}
-```
+No modules.
 
-<!--- BEGIN_TF_DOCS --->
-<!--- END_TF_DOCS --->
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
+
+## Authors
+
+Module managed by [TO THE NEW Pvt. Ltd.](https://github.com/tothenew)
+
+## License
+
+Apache 2 Licensed. See [LICENSE](https://github.com/tothenew/terraform-aws-vpc/blob/main/LICENSE) for full details.
