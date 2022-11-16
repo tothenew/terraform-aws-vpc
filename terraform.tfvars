@@ -1,5 +1,4 @@
 region               = "us-east-1"
-profile              = ""
 cidr_block           = "10.20.0.0/20"
 enable_dns_support   = true
 enable_dns_hostnames = true

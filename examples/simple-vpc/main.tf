@@ -4,7 +4,6 @@ module "vpc_main" {
   enable_dns_hostnames = var.enable_dns_hostnames
   enable_dns_support   = var.enable_dns_support
   region               = var.region
-  profile              = var.profile
   subnet               = var.subnet
   project_name_prefix  = var.project_name_prefix
   common_tags          = var.common_tags

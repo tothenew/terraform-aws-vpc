@@ -3,11 +3,6 @@ variable "region" {
   description = "A string value for Launch resources in which AWS Region"
 }
 
-variable "profile" {
-  type        = string
-  description = "A string value for setting AWS Profile"
-}
-
 variable "cidr_block" {
   type        = string
   description = "IPV4 range for VPC Creation"

@@ -3,11 +3,6 @@ variable "region" {
   description = "Region Name"
 }
 
-variable "profile" {
-  type        = string
-  description = "Profile Name"
-}
-
 variable "cidr_block" {
   type        = string
   description = "IPV4 range for VPC Creation"
