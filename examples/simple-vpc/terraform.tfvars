@@ -49,12 +49,10 @@ subnet = {
   }
 }
 
-project_name_prefix = "tothenew"
+project_name_prefix = "dev-tothenew"
 
 common_tags = {
-  "Feature" : "application"
+    "Feature" : "application"
+    "Project": "ToTheNew"
+    "Environment": "dev"
 }
-
-project = "ToTheNew"
-
-environment = "beta"

@@ -44,15 +44,3 @@ variable "common_tags" {
   type        = map(string)
   description = "A map to add common tags to all the resources"
 }
-
-variable "project" {
-  type        = string
-  description = "A string value for tag as Project Name"
-}
-
-variable "environment" {
-  type        = string
-  description = "A string value for tag as Environment Name"
-}
-
-
