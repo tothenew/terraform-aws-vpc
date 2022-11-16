@@ -19,13 +19,13 @@ output "internet_gateway_id" {
 }
 
 output "route_table_id" {
-    value = module.vpc_main.route_table_id
+  value = module.vpc_main.route_table_id
 }
 
 output "subnet_ids" {
-    value = module.vpc_main.route_table_id
+  value = module.vpc_main.route_table_id
 }
 
 output "subnet_cidr" {
-    value = module.vpc_main.route_table_id
+  value = module.vpc_main.route_table_id
 }
