@@ -1,5 +1,4 @@
 region               = "ap-south-1"
-profile              = ""
 cidr_block           = "10.0.0.0/16"
 enable_dns_support   = true
 enable_dns_hostnames = true
@@ -49,12 +48,10 @@ subnet = {
   }
 }
 
-project_name_prefix = "tothenew"
+project_name_prefix = "dev-tothenew"
 
 common_tags = {
-  "Feature" : "application"
+    "Feature" : "application"
+    "Project": "ToTheNew"
+    "Environment": "dev"
 }
-
-project = "ToTheNew"
-
-environment = "beta"

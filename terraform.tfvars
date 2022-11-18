@@ -1,5 +1,4 @@
 region               = "us-east-1"
-profile              = ""
 cidr_block           = "10.20.0.0/20"
 enable_dns_support   = true
 enable_dns_hostnames = true
@@ -79,12 +78,10 @@ subnet = {
   }
 }
 
-project_name_prefix = "tothenew"
+project_name_prefix = "dev-tothenew"
 
 common_tags = {
   "Feature" : "application"
+  "Project": "ToTheNew"
+  "Environment": "dev"
 }
-
-project = "ToTheNew"
-
-environment = "dev"
