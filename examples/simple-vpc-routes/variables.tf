@@ -1,6 +1,6 @@
 variable "region" {
   type        = string
-  description = "A string value for Launch resources in which AWS Region"
+  description = "Region Name"
 }
 
 variable "cidr_block" {
@@ -9,7 +9,6 @@ variable "cidr_block" {
 }
 
 variable "subnet" {
-  description = "Subnet details having zone and cidr address"
   type = map(object({
     is_public   = bool
     nat_gateway = bool
@@ -32,7 +31,7 @@ variable "enable_dns_hostnames" {
 
 variable "project_name_prefix" {
   type        = string
-  description = "A string value to describe prefix of all the resources"
+  description = "A string value to describe project name prefix"
 }
 
 variable "common_tags" {
@@ -40,10 +39,14 @@ variable "common_tags" {
   description = "A map to add common tags to all the resources"
 }
 
-variable "create_peering_routes" {
-  type        = bool
-  description = "True/False value need to create Peering Route or not, Default to false"
-  default     = false
+variable "project" {
+  type        = string
+  description = "Project Name"
+}
+
+variable "environment" {
+  type        = string
+  description = "Environment Name"
 }
 
 variable "routes" {
