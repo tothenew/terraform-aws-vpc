@@ -82,6 +82,15 @@ project_name_prefix = "dev-tothenew"
 
 common_tags = {
   "Feature" : "application"
-  "Project": "ToTheNew"
-  "Environment": "dev"
+  "Project" : "ToTheNew"
+  "Environment" : "dev"
+}
+
+routes = {
+    "application" = {
+        peering = {
+            "10.10.0.0/16" : "pcx-123456789"
+            "20.10.0.0/16" : "pcx-987654321"
+        }
+    }
 }

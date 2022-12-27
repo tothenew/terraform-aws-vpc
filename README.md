@@ -35,6 +35,7 @@ No providers.
 | <a name="module_nat_gateway"></a> [nat\_gateway](#module\_nat\_gateway) | ./modules/nat-gateway | n/a |
 | <a name="module_route_table"></a> [route\_table](#module\_route\_table) | ./modules/route-table-module | n/a |
 | <a name="module_route_table_association"></a> [route\_table\_association](#module\_route\_table\_association) | ./modules/route-table-association-module | n/a |
+| <a name="module_route_table_peering_routes"></a> [route\_table\_peering\_routes](#module\_route\_table\_peering\_routes) | ./modules/routes-module | n/a |
 | <a name="module_subnet_main"></a> [subnet\_main](#module\_subnet\_main) | ./modules/subnets-module | n/a |
 | <a name="module_vpc_main"></a> [vpc\_main](#module\_vpc\_main) | ./modules/vpc | n/a |
 
@@ -48,10 +49,12 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | IPV4 range for VPC Creation | `string` | n/a | yes |
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | A map to add common tags to all the resources | `map(string)` | n/a | yes |
+| <a name="input_create_peering_routes"></a> [create\_peering\_routes](#input\_create\_peering\_routes) | True/False value need to create Peering Route or not, Default to false | `bool` | `false` | no |
 | <a name="input_enable_dns_hostnames"></a> [enable\_dns\_hostnames](#input\_enable\_dns\_hostnames) | A boolean flag to enable/disable DNS hostnames in the VPC | `bool` | n/a | yes |
 | <a name="input_enable_dns_support"></a> [enable\_dns\_support](#input\_enable\_dns\_support) | A boolean flag to enable/disable DNS support in the VPC | `bool` | n/a | yes |
 | <a name="input_project_name_prefix"></a> [project\_name\_prefix](#input\_project\_name\_prefix) | A string value to describe prefix of all the resources | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | A string value for Launch resources in which AWS Region | `string` | n/a | yes |
+| <a name="input_routes"></a> [routes](#input\_routes) | Route details having destination and target address | <pre>map(object({<br>    peering = map(string)<br>  }))</pre> | n/a | yes |
 | <a name="input_subnet"></a> [subnet](#input\_subnet) | Subnet details having zone and cidr address | <pre>map(object({<br>    is_public   = bool<br>    nat_gateway = bool<br>    details = list(object({<br>      availability_zone = string<br>      cidr_address      = string<br>    }))<br>  }))</pre> | n/a | yes |
 
 ## Outputs
