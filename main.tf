@@ -69,3 +69,10 @@ module "route_table_association" {
   subnet_ids     = lookup(tomap({ for k, bd in module.subnet_main : k => bd.subnet_id }), each.key, {})
   route_table_id = lookup(tomap({ for k, bd in module.route_table : k => bd.route_table_id }), each.key, "undefined")
 }
+
+module "route_table_peering_routes" {
+  source          = "./modules/routes-module"
+  count           = var.create_peering_routes ? 1 : 0
+  routes          = var.routes
+  route_table_ids = tomap({ for k, bd in module.route_table : k => bd.route_table_id })
+}

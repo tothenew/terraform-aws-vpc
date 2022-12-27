@@ -39,3 +39,23 @@ variable "common_tags" {
   type        = map(string)
   description = "A map to add common tags to all the resources"
 }
+
+variable "create_peering_routes" {
+  type        = bool
+  description = "True/False value need to create Peering Route or not, Default to false"
+  default     = false
+}
+
+variable "routes" {
+  description = "Route details having destination and target address"
+  type = map(object({
+    peering = map(string)
+  }))
+  default = {
+    "application" = {
+      peering = {
+
+      }
+    }
+  }
+}
