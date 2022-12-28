@@ -35,7 +35,7 @@ resource "aws_cloudwatch_log_group" "flow_log" {
 resource "aws_iam_role" "vpc_flow_log_cloudwatch" {
   count              = var.flow_log_destination_type == "cloud-watch-logs" && var.enable_flow_log ? 1 : 0
   name               = "${local.project_name_prefix}-vpc-flow-log"
-  assume_role_policy = data.aws_iam_policy_document.flow_log_cloudwatch_assume_role.json
+  assume_role_policy = data.aws_iam_policy_document.flow_log_cloudwatch_assume_role[0].json
 
   tags = merge(local.common_tags, tomap({
     "Name" : "${local.project_name_prefix}-vpc-flow-log"
@@ -64,7 +64,7 @@ resource "aws_iam_role_policy_attachment" "vpc_flow_log_cloudwatch" {
 resource "aws_iam_policy" "vpc_flow_log_cloudwatch" {
   count  = var.flow_log_destination_type == "cloud-watch-logs" && var.enable_flow_log ? 1 : 0
   name   = "${local.project_name_prefix}-vpc-flow-log"
-  policy = data.aws_iam_policy_document.vpc_flow_log_cloudwatch.json
+  policy = data.aws_iam_policy_document.vpc_flow_log_cloudwatch[0].json
 
   tags = merge(local.common_tags, tomap({
     "Name" : "${local.project_name_prefix}-vpc-flow-log"
