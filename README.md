@@ -5,12 +5,67 @@
 
 This is a vpc to use for baseline. The default actions will provide updates for section bitween Requirements and Outputs.
 
-The following content needed to be created and managed:
- - Introduction
-     - Explaination of module 
-     - Intended users
- - Resource created and managed by this module
- - Example Usages
+## Usages
+
+```
+module "vpc_main" {
+    source               = "git::https://github.com/tothenew/terraform-aws-vpc.git"
+    cidr_block           = "10.0.0.0/16"
+    enable_dns_hostnames = true
+    enable_dns_support   = true
+    region               = "ap-south-1"
+    subnet               = {
+        "public" = {
+            is_public   = true
+            nat_gateway = false
+            details = [
+                {
+                    availability_zone = "a"
+                    cidr_address      = "10.0.0.0/19"
+                },
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.32.0/19"
+                }
+            ]
+        }
+        "database" = {
+            is_public   = false
+            nat_gateway = false
+            details = [
+                {
+                    availability_zone = "a"
+                    cidr_address      = "10.0.64.0/18"
+                },
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.128.0/18"
+                }
+            ]
+        }
+        "application" = {
+            is_public   = false
+            nat_gateway = true
+            details = [
+                {
+                    availability_zone = "a"
+                    cidr_address      = "10.0.192.0/19"
+                },
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.224.0/19"
+                }
+            ]
+        }
+    }
+    project_name_prefix  = "dev-tothenew"
+    common_tags          = {
+        "Feature" : "application"
+        "Project": "ToTheNew"
+        "Environment": "dev"
+    }
+}
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
