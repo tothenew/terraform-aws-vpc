@@ -55,6 +55,7 @@ data "aws_iam_policy_document" "flow_log_cloudwatch_assume_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "vpc_flow_log_cloudwatch" {
+  count      = var.flow_log_destination_type == "cloud-watch-logs" && var.enable_flow_log ? 1 : 0
   role       = aws_iam_role.vpc_flow_log_cloudwatch[0].name
   policy_arn = aws_iam_policy.vpc_flow_log_cloudwatch[0].arn
 }
