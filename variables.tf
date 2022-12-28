@@ -51,6 +51,7 @@ variable "routes" {
   type = map(object({
     peering = map(string)
   }))
+  default = {}
 }
 
 variable "secondary_cidr_blocks" {
