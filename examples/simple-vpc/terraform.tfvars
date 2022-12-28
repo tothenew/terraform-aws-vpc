@@ -51,7 +51,7 @@ subnet = {
 project_name_prefix = "dev-tothenew"
 
 common_tags = {
-    "Feature" : "application"
-    "Project": "ToTheNew"
-    "Environment": "dev"
+  "Feature" : "application"
+  "Project" : "ToTheNew"
+  "Environment" : "dev"
 }
