@@ -5,12 +5,67 @@
 
 This is a vpc to use for baseline. The default actions will provide updates for section bitween Requirements and Outputs.
 
-The following content needed to be created and managed:
- - Introduction
-     - Explaination of module 
-     - Intended users
- - Resource created and managed by this module
- - Example Usages
+## Usages
+
+```
+module "vpc_main" {
+    source               = "git::https://github.com/tothenew/terraform-aws-vpc.git"
+    cidr_block           = "10.0.0.0/16"
+    enable_dns_hostnames = true
+    enable_dns_support   = true
+    region               = "ap-south-1"
+    subnet               = {
+        "public" = {
+            is_public   = true
+            nat_gateway = false
+            details = [
+                {
+                    availability_zone = "a"
+                    cidr_address      = "10.0.0.0/19"
+                },
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.32.0/19"
+                }
+            ]
+        }
+        "database" = {
+            is_public   = false
+            nat_gateway = false
+            details = [
+                {
+                    availability_zone = "a"
+                    cidr_address      = "10.0.64.0/18"
+                },
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.128.0/18"
+                }
+            ]
+        }
+        "application" = {
+            is_public   = false
+            nat_gateway = true
+            details = [
+                {
+                    availability_zone = "a"
+                    cidr_address      = "10.0.192.0/19"
+                },
+                {
+                    availability_zone = "b"
+                    cidr_address      = "10.0.224.0/19"
+                }
+            ]
+        }
+    }
+    project_name_prefix  = "dev-tothenew"
+    common_tags          = {
+        "Feature" : "application"
+        "Project": "ToTheNew"
+        "Environment": "dev"
+    }
+}
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -24,7 +79,9 @@ The following content needed to be created and managed:
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.72 |
 
 ## Modules
 
@@ -41,7 +98,9 @@ No providers.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_vpc_ipv4_cidr_block_association.secondary_cidr_blocks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_ipv4_cidr_block_association) | resource |
 
 ## Inputs
 
@@ -55,6 +114,7 @@ No resources.
 | <a name="input_project_name_prefix"></a> [project\_name\_prefix](#input\_project\_name\_prefix) | A string value to describe prefix of all the resources | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | A string value for Launch resources in which AWS Region | `string` | n/a | yes |
 | <a name="input_routes"></a> [routes](#input\_routes) | Route details having destination and target address | <pre>map(object({<br>    peering = map(string)<br>  }))</pre> | n/a | yes |
+| <a name="input_secondary_cidr_blocks"></a> [secondary\_cidr\_blocks](#input\_secondary\_cidr\_blocks) | List of secondary CIDR blocks to associate with the VPC to extend the IP Address pool | `list(string)` | `[]` | no |
 | <a name="input_subnet"></a> [subnet](#input\_subnet) | Subnet details having zone and cidr address | <pre>map(object({<br>    is_public   = bool<br>    nat_gateway = bool<br>    details = list(object({<br>      availability_zone = string<br>      cidr_address      = string<br>    }))<br>  }))</pre> | n/a | yes |
 
 ## Outputs
