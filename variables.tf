@@ -59,3 +59,9 @@ variable "secondary_cidr_blocks" {
   type        = list(string)
   default     = []
 }
+
+variable "secondary_cidr_blocks" {
+  description = "List of secondary CIDR blocks to associate with the VPC to extend the IP Address pool"
+  type        = list(string)
+  default     = []
+}
