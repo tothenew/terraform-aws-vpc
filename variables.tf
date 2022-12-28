@@ -59,3 +59,39 @@ variable "secondary_cidr_blocks" {
   type        = list(string)
   default     = []
 }
+
+variable "enable_flow_log" {
+  description = "Whether or not to enable VPC Flow Logs"
+  type        = bool
+  default     = false
+}
+
+variable "flow_log_cloudwatch_log_group_retention_in_days" {
+  description = "Specifies the number of days you want to retain log events in the specified log group for VPC flow logs."
+  type        = number
+  default     = 7
+}
+
+variable "flow_log_destination_type" {
+  description = "Type of flow log destination. Can be s3 or cloud-watch-logs."
+  type        = string
+  default     = "cloud-watch-logs"
+}
+
+variable "flow_log_log_format" {
+  description = "The fields to include in the flow log record, in the order in which they should appear."
+  type        = string
+  default     = null
+}
+
+variable "flow_log_traffic_type" {
+  description = "The type of traffic to capture. Valid values: ACCEPT, REJECT, ALL."
+  type        = string
+  default     = "ALL"
+}
+
+variable "flow_log_max_aggregation_interval" {
+  description = "The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. Valid Values: `60` seconds or `600` seconds."
+  type        = number
+  default     = 600
+}
