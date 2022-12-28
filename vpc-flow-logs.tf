@@ -43,6 +43,7 @@ resource "aws_iam_role" "vpc_flow_log_cloudwatch" {
 }
 
 data "aws_iam_policy_document" "flow_log_cloudwatch_assume_role" {
+  count = var.flow_log_destination_type == "cloud-watch-logs" && var.enable_flow_log ? 1 : 0
   statement {
     sid = "AWSVPCFlowLogsAssumeRole"
     principals {
@@ -71,6 +72,7 @@ resource "aws_iam_policy" "vpc_flow_log_cloudwatch" {
 }
 
 data "aws_iam_policy_document" "vpc_flow_log_cloudwatch" {
+  count = var.flow_log_destination_type == "cloud-watch-logs" && var.enable_flow_log ? 1 : 0
   statement {
     sid    = "AWSVPCFlowLogsPushToCloudWatch"
     effect = "Allow"
