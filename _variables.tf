@@ -4,7 +4,7 @@ variable "cidr_block" {
   default     = "10.20.0.0/20"
 }
 
-variable "subnet_advance" {
+variable "subnet" {
   description = "Subnet details having zone and cidr address"
   type = map(object({
     is_public   = bool
