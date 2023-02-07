@@ -1,3 +1,6 @@
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
 module "vpc_main" {
   source               = "./modules/vpc"
   cidr_block           = var.cidr_block
@@ -13,7 +16,7 @@ module "subnet_main" {
   for_each            = var.subnet
   source              = "./modules/subnets-module"
   vpc_id              = module.vpc_main.vpc_id
-  region              = var.region
+  region              = data.aws_region.current.name
   name                = each.key
   subnet_details      = each.value.details
   is_public           = each.value.is_public

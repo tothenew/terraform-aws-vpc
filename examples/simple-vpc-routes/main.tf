@@ -1,14 +1,59 @@
 module "vpc_main" {
-  source               = "git::https://github.com/tothenew/terraform-aws-vpc.git"
-  cidr_block           = var.cidr_block
-  enable_dns_hostnames = var.enable_dns_hostnames
-  enable_dns_support   = var.enable_dns_support
-  region               = var.region
-  subnet               = var.subnet
-  project_name_prefix  = var.project_name_prefix
-  common_tags          = var.common_tags
+  source     = "git::https://github.com/tothenew/terraform-aws-vpc.git?ref=simple-vpc-module"
+  cidr_block = "10.0.0.0/16"
+  subnet = {
+    "public" = {
+      is_public   = true
+      nat_gateway = false
+      details = [
+        {
+          availability_zone = "a"
+          cidr_address      = "10.0.0.0/19"
+        },
+        {
+          availability_zone = "b"
+          cidr_address      = "10.0.32.0/19"
+        }
+      ]
+    }
+    "database" = {
+      is_public   = false
+      nat_gateway = false
+      details = [
+        {
+          availability_zone = "a"
+          cidr_address      = "10.0.64.0/18"
+        },
+        {
+          availability_zone = "b"
+          cidr_address      = "10.0.128.0/18"
+        }
+      ]
+    }
+    "private" = {
+      is_public   = false
+      nat_gateway = true
+      details = [
+        {
+          availability_zone = "a"
+          cidr_address      = "10.0.192.0/19"
+        },
+        {
+          availability_zone = "b"
+          cidr_address      = "10.0.224.0/19"
+        }
+      ]
+    }
+  }
 
   # Below lines added after VPC has been created successfully
   create_peering_routes = true
-  routes                = var.routes
+  routes = {
+    "application" = {
+      peering = {
+        "10.10.0.0/16" : "pcx-123456789"
+        "20.10.0.0/16" : "pcx-987654321"
+      }
+    }
+  }
 }

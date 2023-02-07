@@ -1,8 +1,3 @@
-region               = "us-east-1"
-cidr_block           = "10.20.0.0/20"
-enable_dns_support   = true
-enable_dns_hostnames = true
-
 subnet = {
   "public" = {
     is_public   = true
@@ -75,22 +70,5 @@ subnet = {
         cidr_address      = "10.20.12.0/22"
       }
     ]
-  }
-}
-
-project_name_prefix = "dev-tothenew"
-
-common_tags = {
-  "Feature" : "application"
-  "Project" : "ToTheNew"
-  "Environment" : "dev"
-}
-
-routes = {
-  "application" = {
-    peering = {
-      "10.10.0.0/16" : "pcx-123456789"
-      "20.10.0.0/16" : "pcx-987654321"
-    }
   }
 }

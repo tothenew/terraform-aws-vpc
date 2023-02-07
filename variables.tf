@@ -1,11 +1,7 @@
-variable "region" {
-  type        = string
-  description = "A string value for Launch resources in which AWS Region"
-}
-
 variable "cidr_block" {
   type        = string
   description = "IPV4 range for VPC Creation"
+  default     = "10.20.0.0/20"
 }
 
 variable "subnet" {
@@ -23,21 +19,29 @@ variable "subnet" {
 variable "enable_dns_support" {
   type        = bool
   description = "A boolean flag to enable/disable DNS support in the VPC"
+  default     = true
 }
 
 variable "enable_dns_hostnames" {
   type        = bool
   description = "A boolean flag to enable/disable DNS hostnames in the VPC"
+  default     = true
 }
 
 variable "project_name_prefix" {
   type        = string
   description = "A string value to describe prefix of all the resources"
+  default     = "dev-project"
 }
 
 variable "common_tags" {
   type        = map(string)
   description = "A map to add common tags to all the resources"
+  default = {
+    "Feature" : "application"
+    "Project" : "project"
+    "Environment" : "dev"
+  }
 }
 
 variable "create_peering_routes" {

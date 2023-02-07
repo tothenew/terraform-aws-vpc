@@ -11,9 +11,6 @@ This is a vpc to use for baseline. The default actions will provide updates for 
 module "vpc_main" {
     source               = "git::https://github.com/tothenew/terraform-aws-vpc.git"
     cidr_block           = "10.0.0.0/16"
-    enable_dns_hostnames = true
-    enable_dns_support   = true
-    region               = "ap-south-1"
     subnet               = {
         "public" = {
             is_public   = true
@@ -43,7 +40,7 @@ module "vpc_main" {
                 }
             ]
         }
-        "application" = {
+        "private" = {
             is_public   = false
             nat_gateway = true
             details = [
@@ -57,12 +54,6 @@ module "vpc_main" {
                 }
             ]
         }
-    }
-    project_name_prefix  = "dev-tothenew"
-    common_tags          = {
-        "Feature" : "application"
-        "Project": "ToTheNew"
-        "Environment": "dev"
     }
 }
 ```
