@@ -53,7 +53,7 @@ subnet = {
       }
     ]
   }
-  "application" = {
+  "private" = {
     is_public   = false
     nat_gateway = true
     details = [

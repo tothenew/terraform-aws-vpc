@@ -1,6 +1,3 @@
-data "aws_caller_identity" "current" {}
-data "aws_region" "current" {}
-
 module "vpc_main" {
   source               = "./modules/vpc"
   cidr_block           = var.cidr_block
