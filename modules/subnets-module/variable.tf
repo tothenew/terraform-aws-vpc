@@ -15,8 +15,11 @@ variable "name" {
   description = "An Name for Route Table of the environment"
 }
 variable "subnet_details" {
-  type        = any
-  description = ""
+  type = list(object({
+    availability_zone = string
+    cidr_address      = string
+  }))
+  description = "Subnet Details"
 }
 variable "region" {
   type        = string

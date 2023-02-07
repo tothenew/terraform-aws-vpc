@@ -4,7 +4,7 @@ variable "cidr_block" {
   default     = "10.20.0.0/20"
 }
 
-variable "subnet" {
+variable "subnet_advance" {
   description = "Subnet details having zone and cidr address"
   type = map(object({
     is_public   = bool
@@ -14,6 +14,7 @@ variable "subnet" {
       cidr_address      = string
     }))
   }))
+  default = {}
 }
 
 variable "enable_dns_support" {
@@ -38,9 +39,9 @@ variable "common_tags" {
   type        = map(string)
   description = "A map to add common tags to all the resources"
   default = {
-    "Feature" : "application"
-    "Project" : "project"
     "Environment" : "dev"
+    "Project" : "project"
+    "Feature" : "application"
   }
 }
 
