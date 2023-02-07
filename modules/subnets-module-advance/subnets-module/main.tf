@@ -1,6 +1,6 @@
-module "subnet_main" {
+module "subnet_module" {
   count                   = length(var.subnet_details)
-  source                  = "../subnets"
+  source                  = "../../subnets"
   vpc_id                  = var.vpc_id
   cidr_block              = lookup(var.subnet_details[count.index], "cidr_address", "undefined")
   availability_zone       = "${var.region}${lookup(var.subnet_details[count.index], "availability_zone", "undefined")}"

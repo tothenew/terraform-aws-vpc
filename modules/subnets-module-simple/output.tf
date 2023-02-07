@@ -1,9 +1,9 @@
 output "subnet_details_id" {
-  value = tomap({ for k, bd in module.subnets_module_advance : k => bd.subnet_id })
+  value = tomap({ for k, bd in module.subnets_module_simple : k => bd.subnet_id })
 }
 
 output "subnet_details_cidr" {
-  value = tomap({ for k, bd in module.subnets_module_advance : k => bd.subnet_cidr })
+  value = tomap({ for k, bd in module.subnets_module_simple : k => bd.subnet_cidr })
 }
 
 output "internet_gateway_id" {
@@ -19,9 +19,9 @@ output "eip_id" {
 }
 
 output "subnet_ids" {
-  value = { for k, bd in module.subnets_module_advance : k => values(bd.subnet_id) }
+  value = { for k, bd in module.subnets_module_simple : k => values(bd.subnet_id) }
 }
 
 output "subnet_cidr" {
-  value = { for k, bd in var.subnet : k => bd.details.*.cidr_address }
+  value = local.subnet_group_cidr_blocks
 }

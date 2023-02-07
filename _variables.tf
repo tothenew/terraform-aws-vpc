@@ -17,6 +17,40 @@ variable "subnet" {
   default = {}
 }
 
+variable "subnet_bits" {
+  type        = number
+  description = "Number Bits required for creating Subnets"
+  default     = 8
+}
+
+variable "max_subnet_az" {
+  type        = number
+  description = "Maximum number of Subnets per Availability Zone"
+  default     = 2
+}
+
+variable "subnet_group" {
+  type = map(object({
+    is_public   = bool
+    nat_gateway = bool
+  }))
+  description = "Subnets group divided into public, private and database"
+  default = {
+    "database" = {
+      is_public   = false
+      nat_gateway = false
+    },
+    "private" = {
+      is_public   = false
+      nat_gateway = true
+    },
+    "public" = {
+      is_public   = true
+      nat_gateway = false
+    }
+  }
+}
+
 variable "enable_dns_support" {
   type        = bool
   description = "A boolean flag to enable/disable DNS support in the VPC"

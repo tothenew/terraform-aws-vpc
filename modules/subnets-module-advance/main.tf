@@ -1,6 +1,6 @@
-module "subnet_main" {
+module "subnets_module_advance" {
   for_each            = var.subnet
-  source              = "../subnets-module"
+  source              = "./subnets-module"
   vpc_id              = var.vpc_id
   region              = var.region_name
   name                = each.key
@@ -26,10 +26,10 @@ module "elastic_ip" {
 }
 
 module "nat_gateway" {
-  depends_on    = [module.subnet_main, module.elastic_ip]
+  depends_on    = [module.subnets_module_advance, module.elastic_ip]
   source        = "../nat-gateway"
   allocation_id = module.elastic_ip.eip_id
-  subnet_id     = values(lookup(tomap({ for k, bd in module.subnet_main : k => bd.subnet_id }), local.public_subnet_name, {}))[0]
+  subnet_id     = values(lookup(tomap({ for k, bd in module.subnets_module_advance : k => bd.subnet_id }), local.public_subnet_name, {}))[0]
   tags = merge(var.common_tags, tomap({
     "Name" : "${var.project_name_prefix}-nat-gateway"
   }))
@@ -51,10 +51,10 @@ module "route_table" {
 }
 
 module "route_table_association" {
-  depends_on     = [module.subnet_main, module.route_table]
+  depends_on     = [module.subnets_module_advance, module.route_table]
   for_each       = var.subnet
   source         = "../route-table-association-module"
-  subnet_ids     = lookup(tomap({ for k, bd in module.subnet_main : k => bd.subnet_id }), each.key, {})
+  subnet_ids     = lookup(tomap({ for k, bd in module.subnets_module_advance : k => bd.subnet_id }), each.key, {})
   route_table_id = lookup(tomap({ for k, bd in module.route_table : k => bd.route_table_id }), each.key, "undefined")
 }
 

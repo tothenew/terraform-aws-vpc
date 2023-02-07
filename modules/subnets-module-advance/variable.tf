@@ -33,7 +33,6 @@ variable "common_tags" {
 variable "create_peering_routes" {
   type        = bool
   description = "True/False value need to create Peering Route or not, Default to false"
-  default     = false
 }
 
 variable "routes" {
@@ -41,5 +40,4 @@ variable "routes" {
   type = map(object({
     peering = map(string)
   }))
-  default = {}
 }

@@ -3,21 +3,32 @@ variable "vpc_id" {
   description = "VPC ID of Network"
 }
 
-variable "region_name" {
+variable "cidr_block" {
   type        = string
-  description = "Region Name"
+  description = "IPV4 range for VPC Creation"
 }
 
-variable "subnet" {
-  description = "Subnet details having zone and cidr address"
+variable "subnet_bits" {
+  type        = number
+  description = "Number Bits required for creating Subnets"
+}
+
+variable "max_subnet_az" {
+  type        = number
+  description = "Maximum number of Subnets per Availability Zone"
+}
+
+variable "subnet_group" {
   type = map(object({
     is_public   = bool
     nat_gateway = bool
-    details = list(object({
-      availability_zone = string
-      cidr_address      = string
-    }))
   }))
+  description = "Subnets group divided into public, private and database"
+}
+
+variable "region_name" {
+  type        = string
+  description = "Region Name"
 }
 
 variable "project_name_prefix" {
@@ -33,7 +44,6 @@ variable "common_tags" {
 variable "create_peering_routes" {
   type        = bool
   description = "True/False value need to create Peering Route or not, Default to false"
-  default     = false
 }
 
 variable "routes" {
@@ -41,5 +51,9 @@ variable "routes" {
   type = map(object({
     peering = map(string)
   }))
-  default = {}
+}
+
+variable "availability_zones" {
+  type        = list(string)
+  description = "Availability zones of current region"
 }

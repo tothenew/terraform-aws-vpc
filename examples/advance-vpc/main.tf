@@ -1,5 +1,5 @@
 module "vpc_main" {
-  source     = "git::https://github.com/tothenew/terraform-aws-vpc.git?ref=simple-vpc-module"
+  source     = "git::https://github.com/tothenew/terraform-aws-vpc.git?ref=v0.1.0"
   cidr_block = "10.0.0.0/16"
   subnet = {
     "public" = {
@@ -43,17 +43,6 @@ module "vpc_main" {
           cidr_address      = "10.0.224.0/19"
         }
       ]
-    }
-  }
-
-  # Below lines added after VPC has been created successfully
-  create_peering_routes = true
-  routes = {
-    "application" = {
-      peering = {
-        "10.10.0.0/16" : "pcx-123456789"
-        "20.10.0.0/16" : "pcx-987654321"
-      }
     }
   }
 }

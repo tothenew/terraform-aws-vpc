@@ -3,58 +3,29 @@
 [![Lint Status](https://github.com/tothenew/terraform-aws-vpc/workflows/Lint/badge.svg)](https://github.com/tothenew/terraform-aws-vpc/actions)
 [![LICENSE](https://img.shields.io/github/license/tothenew/terraform-aws-vpc)](https://github.com/tothenew/terraform-aws-vpc/blob/master/LICENSE)
 
-This is a vpc to use for baseline. The default actions will provide updates for section bitween Requirements and Outputs.
+This module creates the basic and advance network resources for a region.
+
+The following resources will be created:
+- Virtual Private Cloud (VPC)
+- VPC Flow Logs
+- AWS Cloudwatch log groups
+- Subnets
+  - Public
+  - Private
+  - Database
+- Internet Gateway
+- Nat Gateway
+- Route tables for the Public, Private, Database subnets
+- Associate all Route Tables created to the correct subnet
+- Database Subnet group - Provides an RDS DB subnet group resources without Internet
+- Adding routes in Route Table for VPC Peering
 
 ## Usages
-
 ```
 module "vpc_main" {
-    source               = "git::https://github.com/tothenew/terraform-aws-vpc.git"
-    cidr_block           = "10.0.0.0/16"
-    subnet               = {
-        "public" = {
-            is_public   = true
-            nat_gateway = false
-            details = [
-                {
-                    availability_zone = "a"
-                    cidr_address      = "10.0.0.0/19"
-                },
-                {
-                    availability_zone = "b"
-                    cidr_address      = "10.0.32.0/19"
-                }
-            ]
-        }
-        "database" = {
-            is_public   = false
-            nat_gateway = false
-            details = [
-                {
-                    availability_zone = "a"
-                    cidr_address      = "10.0.64.0/18"
-                },
-                {
-                    availability_zone = "b"
-                    cidr_address      = "10.0.128.0/18"
-                }
-            ]
-        }
-        "private" = {
-            is_public   = false
-            nat_gateway = true
-            details = [
-                {
-                    availability_zone = "a"
-                    cidr_address      = "10.0.192.0/19"
-                },
-                {
-                    availability_zone = "b"
-                    cidr_address      = "10.0.224.0/19"
-                }
-            ]
-        }
-    }
+  source      = "git::https://github.com/tothenew/terraform-aws-vpc.git?ref=v0.1.0"
+  cidr_block  = "10.1.0.0/16"
+  subnet_bits = 8
 }
 ```
 
