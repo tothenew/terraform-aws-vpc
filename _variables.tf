@@ -134,3 +134,9 @@ variable "flow_log_max_aggregation_interval" {
   type        = number
   default     = 600
 }
+
+variable "create_vpc_endpoint" {
+  type        = bool
+  description = "Create all VPC Endpoint"
+  default     = false
+}
