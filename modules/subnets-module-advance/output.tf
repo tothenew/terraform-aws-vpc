@@ -1,17 +1,9 @@
-output "vpc_id" {
-  value = module.vpc_main.vpc_id
-}
-
-output "vpc_cidr" {
-  value = var.cidr_block
-}
-
 output "subnet_details_id" {
-  value = tomap({ for k, bd in module.subnet_main : k => bd.subnet_id })
+  value = tomap({ for k, bd in module.subnets_module_advance : k => bd.subnet_id })
 }
 
 output "subnet_details_cidr" {
-  value = tomap({ for k, bd in module.subnet_main : k => bd.subnet_cidr })
+  value = tomap({ for k, bd in module.subnets_module_advance : k => bd.subnet_cidr })
 }
 
 output "internet_gateway_id" {
@@ -27,7 +19,7 @@ output "eip_id" {
 }
 
 output "subnet_ids" {
-  value = { for k, bd in module.subnet_main : k => values(bd.subnet_id) }
+  value = { for k, bd in module.subnets_module_advance : k => values(bd.subnet_id) }
 }
 
 output "subnet_cidr" {

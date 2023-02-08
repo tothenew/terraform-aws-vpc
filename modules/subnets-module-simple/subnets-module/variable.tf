@@ -14,13 +14,13 @@ variable "name" {
   type        = string
   description = "An Name for Route Table of the environment"
 }
-variable "subnet_details" {
-  type        = any
-  description = ""
+variable "subnet_cidr_block" {
+  type        = list(string)
+  description = "Subnet CIDR Block"
 }
-variable "region" {
-  type        = string
-  description = ""
+variable "availability_zones" {
+  type        = list(string)
+  description = "Availability zones of current region"
 }
 variable "is_public" {
   type        = bool
