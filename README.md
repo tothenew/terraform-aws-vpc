@@ -48,6 +48,7 @@ module "vpc_main" {
 |------|--------|---------|
 | <a name="module_subnet_advance"></a> [subnet\_advance](#module\_subnet\_advance) | ./modules/subnets-module-advance | n/a |
 | <a name="module_subnet_simple"></a> [subnet\_simple](#module\_subnet\_simple) | ./modules/subnets-module-simple | n/a |
+| <a name="module_vpc_endpoint"></a> [vpc\_endpoint](#module\_vpc\_endpoint) | git::https://github.com/tothenew/terraform-aws-vpc-endpoint.git | n/a |
 | <a name="module_vpc_main"></a> [vpc\_main](#module\_vpc\_main) | ./modules/vpc | n/a |
 
 ## Resources
@@ -72,6 +73,7 @@ module "vpc_main" {
 | <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | IPV4 range for VPC Creation | `string` | `"10.20.0.0/20"` | no |
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | A map to add common tags to all the resources | `map(string)` | <pre>{<br>  "Environment": "dev",<br>  "Feature": "application",<br>  "Project": "project"<br>}</pre> | no |
 | <a name="input_create_peering_routes"></a> [create\_peering\_routes](#input\_create\_peering\_routes) | True/False value need to create Peering Route or not, Default to false | `bool` | `false` | no |
+| <a name="input_create_vpc_endpoint"></a> [create\_vpc\_endpoint](#input\_create\_vpc\_endpoint) | Create all VPC Endpoint | `bool` | `false` | no |
 | <a name="input_enable_dns_hostnames"></a> [enable\_dns\_hostnames](#input\_enable\_dns\_hostnames) | A boolean flag to enable/disable DNS hostnames in the VPC | `bool` | `true` | no |
 | <a name="input_enable_dns_support"></a> [enable\_dns\_support](#input\_enable\_dns\_support) | A boolean flag to enable/disable DNS support in the VPC | `bool` | `true` | no |
 | <a name="input_enable_flow_log"></a> [enable\_flow\_log](#input\_enable\_flow\_log) | Whether or not to enable VPC Flow Logs | `bool` | `false` | no |
