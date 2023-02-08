@@ -1,5 +1,5 @@
 module "vpc_main" {
-  source     = "git::https://github.com/tothenew/terraform-aws-vpc.git?ref=v0.1.0"
+  source     = "git::https://github.com/tothenew/terraform-aws-vpc.git"
   cidr_block = "10.0.0.0/16"
   subnet = {
     "public" = {
