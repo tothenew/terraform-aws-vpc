@@ -1,4 +1,5 @@
-# Overriding Default configuration will create 3 private and 3 public VPC Subnets
+# Overriding Default configuration will create 2 private and 2 public VPC Subnets,
+# if user want to add additional Subnet in future by any name it will create by variable additional_subnet_group.
 
 module "vpc_main" {
   source        = "git::https://github.com/tothenew/terraform-aws-vpc.git?ref=v0.2.0"
