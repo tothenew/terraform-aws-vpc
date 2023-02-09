@@ -30,4 +30,6 @@ module "subnet_simple" {
   region_name           = data.aws_region.current.name
   create_peering_routes = var.create_peering_routes
   routes                = var.routes
+
+  additional_subnet_group = var.additional_subnet_group
 }

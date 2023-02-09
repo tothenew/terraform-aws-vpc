@@ -57,3 +57,16 @@ variable "availability_zones" {
   type        = list(string)
   description = "Availability zones of current region"
 }
+
+variable "additional_subnet_group" {
+  description = "Subnet details having zone and cidr address"
+  type = map(object({
+    is_public   = bool
+    nat_gateway = bool
+    details = list(object({
+      availability_zone = string
+      cidr_address      = string
+    }))
+  }))
+  default = {}
+}
