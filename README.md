@@ -48,7 +48,7 @@ module "vpc_main" {
 |------|--------|---------|
 | <a name="module_subnet_advance"></a> [subnet\_advance](#module\_subnet\_advance) | ./modules/subnets-module-advance | n/a |
 | <a name="module_subnet_simple"></a> [subnet\_simple](#module\_subnet\_simple) | ./modules/subnets-module-simple | n/a |
-| <a name="module_vpc_endpoint"></a> [vpc\_endpoint](#module\_vpc\_endpoint) | git::https://github.com/tothenew/terraform-aws-vpc-endpoint.git | n/a |
+| <a name="module_vpc_endpoint"></a> [vpc\_endpoint](#module\_vpc\_endpoint) | git::https://github.com/tothenew/terraform-aws-vpc-endpoint.git | v0.1.0 |
 | <a name="module_vpc_main"></a> [vpc\_main](#module\_vpc\_main) | ./modules/vpc | n/a |
 
 ## Resources

@@ -1,6 +1,6 @@
 module "vpc_endpoint" {
   count               = var.create_vpc_endpoint ? 1 : 0
-  source              = "git::https://github.com/tothenew/terraform-aws-vpc-endpoint.git"
+  source              = "git::https://github.com/tothenew/terraform-aws-vpc-endpoint.git?ref=v0.1.0"
   project_name_prefix = local.project_name_prefix
   common_tags         = local.common_tags
   vpc_id              = module.vpc_main.vpc_id
