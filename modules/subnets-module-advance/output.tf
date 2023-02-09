@@ -25,3 +25,7 @@ output "subnet_ids" {
 output "subnet_cidr" {
   value = { for k, bd in var.subnet : k => bd.details.*.cidr_address }
 }
+
+output "private_subnet_name" {
+  value = [for subnet_name, subnet_detail in var.subnet : subnet_name if subnet_detail.nat_gateway == true][0]
+}

@@ -25,3 +25,7 @@ output "subnet_ids" {
 output "subnet_cidr" {
   value = local.subnet_group_cidr_blocks
 }
+
+output "private_subnet_name" {
+  value = [for subnet_name, subnet_detail in var.subnet_group : subnet_name if subnet_detail.nat_gateway == true][0]
+}
