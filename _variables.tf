@@ -51,6 +51,19 @@ variable "subnet_group" {
   }
 }
 
+variable "additional_subnet_group" {
+  description = "Subnet details having zone and cidr address"
+  type = map(object({
+    is_public   = bool
+    nat_gateway = bool
+    details = list(object({
+      availability_zone = string
+      cidr_address      = string
+    }))
+  }))
+  default = {}
+}
+
 variable "enable_dns_support" {
   type        = bool
   description = "A boolean flag to enable/disable DNS support in the VPC"
@@ -63,20 +76,25 @@ variable "enable_dns_hostnames" {
   default     = true
 }
 
-variable "project_name_prefix" {
+variable "name" {
   type        = string
   description = "A string value to describe prefix of all the resources"
-  default     = "dev-project"
+  default     = ""
+}
+
+variable "default_tags" {
+  type        = map(string)
+  description = "A map to add common tags to all the resources"
+  default = {
+    "Scope" : "VPC"
+    "CreatedBy" : "Terraform"
+  }
 }
 
 variable "common_tags" {
   type        = map(string)
   description = "A map to add common tags to all the resources"
-  default = {
-    "Environment" : "dev"
-    "Project" : "project"
-    "Feature" : "application"
-  }
+  default     = {}
 }
 
 variable "create_peering_routes" {

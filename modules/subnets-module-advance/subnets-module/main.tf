@@ -7,5 +7,6 @@ module "subnet_module" {
   map_public_ip_on_launch = var.is_public
   tags = merge(var.common_tags, tomap({
     "Name" : "${var.project_name_prefix}-${var.name}-${count.index + 1}"
+    "Scope" : var.name
   }))
 }
