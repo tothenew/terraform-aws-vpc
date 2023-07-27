@@ -48,7 +48,7 @@ module "vpc_main" {
 |------|--------|---------|
 | <a name="module_subnet_advance"></a> [subnet\_advance](#module\_subnet\_advance) | ./modules/subnets-module-advance | n/a |
 | <a name="module_subnet_simple"></a> [subnet\_simple](#module\_subnet\_simple) | ./modules/subnets-module-simple | n/a |
-| <a name="module_vpc_endpoint"></a> [vpc\_endpoint](#module\_vpc\_endpoint) | git::https://github.com/tothenew/terraform-aws-vpc-endpoint.git | v0.1.0 |
+| <a name="module_vpc_endpoint"></a> [vpc\_endpoint](#module\_vpc\_endpoint) | git::https://github.com/tothenew/terraform-aws-vpc-endpoint.git | n/a |
 | <a name="module_vpc_main"></a> [vpc\_main](#module\_vpc\_main) | ./modules/vpc | n/a |
 
 ## Resources
@@ -70,6 +70,8 @@ module "vpc_main" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_add_gateway"></a> [add\_gateway](#input\_add\_gateway) | Adding new Gateway endpoints | `list(string)` | `[]` | no |
+| <a name="input_add_interface"></a> [add\_interface](#input\_add\_interface) | Adding new Interface endpoints | `list(string)` | `[]` | no |
 | <a name="input_additional_subnet_group"></a> [additional\_subnet\_group](#input\_additional\_subnet\_group) | Subnet details having zone and cidr address | <pre>map(object({<br>    is_public   = bool<br>    nat_gateway = bool<br>    details = list(object({<br>      availability_zone = string<br>      cidr_address      = string<br>    }))<br>  }))</pre> | `{}` | no |
 | <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | IPV4 range for VPC Creation | `string` | `"10.20.0.0/20"` | no |
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | A map to add common tags to all the resources | `map(string)` | `{}` | no |
