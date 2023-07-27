@@ -158,3 +158,15 @@ variable "create_vpc_endpoint" {
   description = "Create all VPC Endpoint"
   default     = false
 }
+
+variable "add_interface" {
+  type        = list(string)
+  description = "Adding new Interface endpoints"
+  default     = []
+}
+
+variable "add_gateway" {
+  type        = list(string)
+  description = "Adding new Gateway endpoints"
+  default     = []
+}
